@@ -16,7 +16,14 @@
 
   <h2>Artists</h2>
   <ul>
-    @foreach ($comic->writers as $writer)
+    @foreach (json_decode($comic->artists) as $artist)
+    <li>{{ $artist }}</li>
+    @endforeach
+  </ul>
+
+  <h2>Writers</h2>
+  <ul>
+    @foreach (json_decode($comic->writers) as $writer)
     <li>{{ $writer }}</li>
     @endforeach
   </ul>
