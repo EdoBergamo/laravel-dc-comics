@@ -15,3 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('comics', ComicController::class);
+Route::get('/comics/create', 'ComicController@create')->name('comics.create');
+Route::post('/comics', 'ComicController@store')->name('comics.store');
+Route::get('/comics/{id}/edit', 'ComicController@edit')->name('comics.edit');
+Route::put('/comics/{id}', 'ComicController@update')->name('comics.update');

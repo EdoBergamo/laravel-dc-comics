@@ -35,7 +35,7 @@ class ComicController extends Controller
             'thumb' => 'required|url',
             'price' => 'required|numeric',
             'series' => 'required',
-            'sale_date' => 'required|data',
+            'sale_date' => 'required|date',
             'type' => 'required',
             'artists' => 'required|array',
             'writers' => 'required|array',
@@ -57,9 +57,10 @@ class ComicController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+        return view('comics.edit', compact('comic'));
     }
 
     /**
@@ -67,7 +68,22 @@ class ComicController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'thumb' => 'required|url',
+            'price' => 'required|numeric',
+            'series' => 'required',
+            'sale_date' => 'required|date',
+            'type' => 'required',
+            'artists' => 'required|array',
+            'writers' => 'required|array',
+        ]);
+    
+        $comic = Comic::findOrFail($id);
+        $comic->update($validatedData);
+    
+        return redirect()->route('comics.index')->with('success', 'Comic updated successfully!');
     }
 
     /**
